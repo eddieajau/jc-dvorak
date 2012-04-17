@@ -26,7 +26,7 @@ JLoader::registerPrefix('J', DPATH_PLATFORM . '/joomla', true);
 // Load the core Joomla Platform.
 JLoader::registerPrefix('J', JPATH_PLATFORM . '/joomla');</pre>
 
-You can search-and-replace the word "Dvorak" and replace it with your own application name. You can also search-and-replace "{COPYRIGHT}".
+You can search-and-replace the word "Dvorak" and replace it with your own application name. You can rename the ``dvorak/`` folder to something that better suits your project or application and you can use your own prefix (it can be one or more characters) for your custom classes. You can also search-and-replace "{COPYRIGHT}".
 
 This type of repository would be used to start your own toolkit of platform classes, or where you want to deliberately override the core Joomla Platform classes (for example, to write your own ``JUser`` class).
 
