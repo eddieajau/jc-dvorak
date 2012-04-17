@@ -1,32 +1,34 @@
-# Bach - Your basic command line application
+# Dvorak - A custom platform
 
-Like his [Minuet in G](http://www.youtube.com/watch?v=on1DDSLdDOo) (incidentally, the first classical piece I learned on the piano), **Bach** is a very simple skeleton for a command line application. It demonstrates:
+What captures of the idea of overriding or extending the Joomla Platform itself? I immediately thought of **Dvorak** and his symphony "from the New World".  Dvorak is simple skeleton for creating a custom framework to stand beside the core Joomla Platform, or even to override it. It demonstrates:
 
-* how to bootstrap the Joomla Platform;
-* how to provide a configuration file for an application;
-* how to set up the application source code to the auto-loader specifications; 
-* how to identify command line options; and
-* how to use a model and its state.
+* how to structure a custom platform with a custom prefix;
+* how to structure overrides for the core Joomla classes; and
+* how to structure the test suite.
 
 ## Overview
 
 <dl>
-  <dt>bin/</dt>
-  <dd>This folder contains the executatable files.</dd>
-  <dt>code/</dt>
-  <dd>This folder contains all the custom application code.</dd>
-  <dt>config/</dt>
-  <dd>This folder contains the configuration file for the application.</dd>
+  <dt>build/</dt>
+  <dd>This folder contains support folders that are used when creating the code coverage report.</dd>
+  <dt>libraries/</dt>
+  <dd>This folder mirrors the ``libraries/`` folder in the core Joomla Platform.</dd>
+  <dt>tests/</dt>
+  <dd>This folder contains the test suite for the custom platform.</dd>
 </dl>
 
-Note that within the ``code/`` folder, all the classes are prefixed with "Bach" and then all the classes follow the auto-loader naming convention. The prefix is specified in the last line of the ``code/bootstrap.php`` file:
+Note that within the ``libraries/dvorak/`` folder, all the classes are prefixed with "D" (instead of "J") and then all the classes follow the auto-loader naming convention. The prefix is specified in the last line of the ``libraries/import.php`` file:
 
-<pre>// Setup the autoloader for the Bach application classes.
-JLoader::registerPrefix('Bach', __DIR__);</pre>
+<pre>// Ensure that we load any Dvorak Platform classes before Joomla ones.
+JLoader::registerPrefix('D', DPATH_PLATFORM . '/dvorak', true);
+JLoader::registerPrefix('J', DPATH_PLATFORM . '/joomla', true);
 
-You can search-and-replace the word "Bach" and replace it with your own application name. You can also search-and-replace "{COPYRIGHT}".
+// Load the core Joomla Platform.
+JLoader::registerPrefix('J', JPATH_PLATFORM . '/joomla');</pre>
 
-This type of architecture could be used to support a single command-line application, or it could be used for many different variants, each with its own executable in ``bin/``, but using a common code library under ``code/``.
+You can search-and-replace the word "Dvorak" and replace it with your own application name. You can also search-and-replace "{COPYRIGHT}".
+
+This type of repository would be used to start your own toolkit of platform classes, or where you want to deliberately override the core Joomla Platform classes (for example, to write your own ``JUser`` class).
 
 ## Requirements
 
@@ -34,18 +36,18 @@ This type of architecture could be used to support a single command-line applica
 
 ## Installation
 
-This application assumes that you have cloned it, and the Joomla Platform (you need to use [eBay's fork](https://github.com/eBaySF/joomla-platform/tree/mvc) for now because this example uses the new proposed MVC) into a folder called "joomla" under the same parent. For example:
+This application assumes that you have cloned it, and the Joomla Platform into a folder called "joomla" under the same parent. For example:
 
 <pre>/parent
-../Bach    &lt;-- this repository
-../joomla  &lt;-- eBay's platform</pre>
+../Dvorak  &lt;-- this repository
+../joomla  &lt;-- the Joomla Platform</pre>
 
 The simplest way to do this is like this:
 
 <pre>mkdir Composers
 cd Composers
-git clone git://github.com/ebaysf/joomla-platform.git joomla
-git clone git://github.com/eddieajau/jc-bach.git Bach</pre>
+git clone git://github.com/joomla/joomla-platform.git joomla
+git clone git://github.com/eddieajau/jc-dvorak.git Dvorak</pre>
 
 Such a setup will allow the application to auto-discover the Joomla Platform. Alternatively, you can configure some environment variables so that your applications know where to find the Joomla Platform (probably the way you would do it on the production server).
 
@@ -53,13 +55,7 @@ Such a setup will allow the application to auto-discover the Joomla Platform. Al
 
 Once you have cloned this repository, you can then push it to one your have created for your own application.
 
-## Running the application
-
-To run the application, navigation to the "/bin" folder and make sure the "run" file is executable. Then run it directly (if on a *nix operating system), or by invoking php like this (you loose the ability to use command line arguments for the script itself doing it this way):
-
-<pre>php -f run</pre>
-
-Consult your operating system requirements for putting the script in your execution path so that you can run it from any folder.
+To use the new platform, bootstrap the Joomla Platform in the normal way (either using the core or the legacy file), and then include ``libraries/import.php`` from your custom platform.
 
 ## About the Joomla Composers
 

@@ -1,0 +1,1 @@
+Classes in this folder will override the core Joomla Platform classes if they have the same relative path, file and class name.

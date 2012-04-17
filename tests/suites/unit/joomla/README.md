@@ -1,0 +1,1 @@
+Write tests for the Joomla Platform overrides under this folder.
