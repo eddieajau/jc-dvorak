@@ -12,7 +12,7 @@ What captures of the idea of overriding or extending the Joomla Platform itself?
   <dt>build/</dt>
   <dd>This folder contains support folders that are used when creating the code coverage report.</dd>
   <dt>libraries/</dt>
-  <dd>This folder mirrors the ``libraries/`` folder in the core Joomla Platform.</dd>
+  <dd>This folder mirrors the <code>libraries/</code> folder in the core Joomla Platform.</dd>
   <dt>tests/</dt>
   <dd>This folder contains the test suite for the custom platform.</dd>
 </dl>
